@@ -23,7 +23,7 @@ The project evaluates model accuracy, inference speed, retrieval, mathematical r
 
 ## Main Results
 
-The notebook contains results from multiple runs and environments. The primary llama.cpp Q4_K_M comparison reports the following overall accuracies:
+The notebook contains results from multiple runs and environments. It reports both baseline model scores and scores from specialized pipelines built for individual categories. These should not be conflated: the table below is the baseline llama.cpp Q4_K_M comparison, while the category results farther below measure the additional PAL, RAG, and live-search systems.
 
 | Model | Overall accuracy |
 |---|---:|
@@ -32,14 +32,24 @@ The notebook contains results from multiple runs and environments. The primary l
 | Llama-3.1-8B | 76.01% |
 | Mistral-7B-v0.3 | 65.53% |
 
-Accuracy varies substantially by topic. The strongest documented topic scores include:
+The baseline accuracy varies substantially by topic. The strongest documented baseline topic scores include:
 
 - Gemma-2-9B on Philosophy and Psychology: **97.03%**
 - Gemma-2-9B on Science and Nature: **92.93%**
 - Qwen3.5-9B on Science and Nature: **90.30%**
 - Qwen3.5-9B on Philosophy and Psychology: **93.20%**
 
-The live-search experiments are described in the notebook as frequently reaching **15/15** on News and general-knowledge runs. These results are experiment notes rather than a single reproducible aggregate score, so the exact percentages should be taken from the generated CSV logs when available.
+### Category-specific pipelines
+
+| Category | Pipeline / model | Reported result |
+|---|---|---:|
+| Maths | Vanilla Qwen3.5-9B | approximately **61%** |
+| Maths | Qwen3.5-9B + PAL | **65-66%** |
+| Maths | Qwen3.5-9B + RAG + PAL | **84-85%** |
+| News | Qwen3.5-9B + Exa or Firecrawl | often **15/15 (100%)** |
+| General topics | Qwen3.5-9B + live search | frequently **15/15 (100%)** |
+
+The notebook describes the News and general-topic live-search runs as frequently achieving 15/15. Since those reported runs contain 15 questions, that corresponds to 100% for a completed run; exact aggregate percentages should be read from the generated logs when available. The category-specific Maths figures above are the reported pipeline results and are not the same as the llama.cpp baseline table.
 
 ## Throughput Results
 
