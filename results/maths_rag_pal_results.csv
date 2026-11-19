@@ -1,0 +1,2 @@
+Model,Overall Accuracy (%),Total Earnings ($),Avg Time / Question (s),Maths Accuracy (%),Maths Avg Time / Question (s)
+Qwen/Qwen3.5-9B,85.45,1098400,8.052,85.45,8.052

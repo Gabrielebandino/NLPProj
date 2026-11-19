@@ -1,0 +1,5 @@
+model,family,params_b,engine,tok_per_s_mean,tok_per_s_std
+mistralai/Mistral-7B-Instruct-v0.3,Mistral,7.2,hf,13.88,0.21
+meta-llama/Llama-3.1-8B-Instruct,Llama,8.0,hf,13.51,0.18
+Qwen/Qwen3.5-9B,Qwen,9.0,hf,10.55,0.15
+google/gemma-2-9b-it,Gemma,9.2,hf,8.59,0.12

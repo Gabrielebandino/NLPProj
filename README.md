@@ -23,9 +23,20 @@ The project evaluates model accuracy, inference speed, retrieval, mathematical r
 
 ## Main Results
 
-The notebook contains results from multiple runs and environments. It reports both baseline model scores and scores from specialized pipelines built for individual categories. These should not be conflated: the table below is the baseline llama.cpp Q4_K_M comparison, while the category results farther below measure the additional PAL, RAG, and live-search systems.
+![PoliMillionaire Benchmark Summary](results/benchmark_summary.png)
 
-| Model | Overall accuracy |
+All execution outputs are preserved in [`NLP_final.ipynb`](NLP_final.ipynb) and backed by the exported CSV artifacts in [`results/`](results/):
+
+- [`results/baseline_accuracy_llamacpp.csv`](results/baseline_accuracy_llamacpp.csv) — Consolidated 6-topic and overall baseline accuracy under `llama.cpp` (`Q4_K_M`).
+- [`results/benchmark_results_raw_llamacpp.csv`](results/benchmark_results_raw_llamacpp.csv) — Raw 4-model `llama.cpp` run table (showing Gemma-2-9B, Llama-3.1-8B, Mistral-7B-v0.3, and the pre-fix 5-token Qwen3.5 run prior to the `<think>` / CoT fix documented in Section 5).
+- [`results/maths_rag_pal_results.csv`](results/maths_rag_pal_results.csv) — Executed **RAG (NuminaMath-CoT TF-IDF) + PAL** Maths benchmark run (**85.45%** accuracy, `$1,098,400` total earnings, `8.052s` avg time/question).
+- [`results/news_question_logs_exa_15of15.csv`](results/news_question_logs_exa_15of15.csv) & [`results/news_question_logs_5games.csv`](results/news_question_logs_5games.csv) — Full per-question logs (questions, options, retrieved search snippets, raw LLM JSON outputs, correctness, and latency) for the live News search runs (**15/15 = 100.00%** on Exa at `2.57s`/question, and 56 logged questions across 5 multi-source games).
+- [`results/category_pipelines_summary.csv`](results/category_pipelines_summary.csv) — Summary comparison across baseline and category-specific tool-augmented pipelines.
+- [`results/throughput_comparison.csv`](results/throughput_comparison.csv) ([`throughput_results.csv`](results/throughput_results.csv), [`throughput_results_llamacpp.csv`](results/throughput_results_llamacpp.csv)) — Decoding throughput benchmarks for Hugging Face (`bitsandbytes` 4-bit) vs. `llama.cpp` (`GGUF Q4_K_M`).
+
+The notebook reports both baseline model scores and scores from specialized pipelines built for individual categories. These should not be conflated: the table below is the baseline `llama.cpp` `Q4_K_M` 6-topic comparison ([`results/baseline_accuracy_llamacpp.csv`](results/baseline_accuracy_llamacpp.csv)), while the category results farther below measure the additional PAL, RAG, and live-search systems.
+
+| Model | 6-Topic Average Accuracy |
 |---|---:|
 | Qwen3.5-9B | **79.88%** |
 | Gemma-2-9B | 77.18% |
@@ -41,19 +52,20 @@ The baseline accuracy varies substantially by topic. The strongest documented ba
 
 ### Category-specific pipelines
 
-| Category | Pipeline / model | Reported result |
-|---|---|---:|
-| Maths | Vanilla Qwen3.5-9B | approximately **61%** |
-| Maths | Qwen3.5-9B + PAL | **65-66%** |
-| Maths | Qwen3.5-9B + RAG + PAL | **84-85%** |
-| News | Qwen3.5-9B + Exa or Firecrawl | often **15/15 (100%)** |
-| General topics | Qwen3.5-9B + live search | frequently **15/15 (100%)** |
-
-The notebook describes the News and general-topic live-search runs as frequently achieving 15/15. Since those reported runs contain 15 questions, that corresponds to 100% for a completed run; exact aggregate percentages should be read from the generated logs when available. The category-specific Maths figures above are the reported pipeline results and are not the same as the llama.cpp baseline table.
+| Category | Pipeline / model | Reported result | Backing artifact |
+|---|---|---:|---|
+| Maths | Vanilla Qwen3.5-9B | **62.80%** (~61–63%) | [`results/baseline_accuracy_llamacpp.csv`](results/baseline_accuracy_llamacpp.csv) |
+| Maths | Qwen3.5-9B + PAL | **65–66%** | [`NLP_final.ipynb` (§9.1)](NLP_final.ipynb) |
+| Maths | Qwen3.5-9B + RAG + PAL | **85.45%** (84–85%) | [`results/maths_rag_pal_results.csv`](results/maths_rag_pal_results.csv) |
+| News | Qwen3.5-9B + Exa (1-game run) | **15/15 (100.00%)** | [`results/news_question_logs_exa_15of15.csv`](results/news_question_logs_exa_15of15.csv) |
+| News | Qwen3.5-9B + Exa (5-game, 45-question run) | **42/45 (93.33%)** | [`results/news_question_logs_5games.csv`](results/news_question_logs_5games.csv) |
+| General topics | Qwen3.5-9B + live search | frequently **15/15 (100%)** | [`NLP_final.ipynb` (§13)](NLP_final.ipynb) |
 
 ## Throughput Results
 
-Measured decoding throughput under the documented 4-bit setup:
+![Throughput Comparison](throughput_comparison.png)
+
+Measured decoding throughput under the documented 4-bit setup ([`results/throughput_comparison.csv`](results/throughput_comparison.csv)):
 
 | Model | Hugging Face | llama.cpp | Speedup |
 |---|---:|---:|---:|

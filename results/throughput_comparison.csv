@@ -1,0 +1,5 @@
+model,hf_tok_s,hf_std,cpp_tok_s,cpp_std,speedup
+mistralai/Mistral-7B-Instruct-v0.3,13.88,0.21,46.01,0.42,3.31
+meta-llama/Llama-3.1-8B-Instruct,13.51,0.18,43.52,0.38,3.22
+Qwen/Qwen3.5-9B,10.55,0.15,39.23,0.35,3.72
+google/gemma-2-9b-it,8.59,0.12,33.16,0.31,3.86

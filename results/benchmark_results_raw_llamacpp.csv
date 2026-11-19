@@ -1,0 +1,5 @@
+Model,Overall Accuracy (%),Entertainment Accuracy (%),Ancient History and Politics Accuracy (%),Science and Nature Accuracy (%),Maths Accuracy (%),Philosophy and Psychology Accuracy (%),News Accuracy (%)
+bartowski/Meta-Llama-3.1-8B-Instruct-GGUF,83.67,82.14,86.33,88.39,52.38,92.27,54.55
+bartowski/gemma-2-9b-it-GGUF,87.08,81.37,83.62,92.93,47.37,97.03,60.78
+bartowski/Mistral-7B-Instruct-v0.3-GGUF,76.71,72.97,71.01,83.76,20.0,89.88,55.56
+lmstudio-community/Qwen3.5-9B-GGUF,25.0,25.93,23.08,20.0,37.5,16.67,23.08

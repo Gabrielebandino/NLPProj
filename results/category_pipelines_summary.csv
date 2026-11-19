@@ -1,0 +1,7 @@
+Category,Model,Pipeline,Accuracy (%),Avg Time / Question (s),Source Artifact
+Maths,Qwen/Qwen3.5-9B,Vanilla (llama.cpp Q4_K_M),62.8,,results/baseline_accuracy_llamacpp.csv
+Maths,Qwen/Qwen3.5-9B,PAL-only (Python Executor),66.0,,NLP_final.ipynb (Section 9.1)
+Maths,Qwen/Qwen3.5-9B,RAG (NuminaMath-CoT TF-IDF) + PAL,85.45,8.052,results/maths_rag_pal_results.csv
+News,Qwen/Qwen3.5-9B,Vanilla (llama.cpp Q4_K_M),60.3,,results/baseline_accuracy_llamacpp.csv
+News,Qwen/Qwen3.5-9B,"Live Web Search (Exa, 1-game run)",100.0,2.57,results/news_question_logs_exa_15of15.csv
+News,Qwen/Qwen3.5-9B,"Live Web Search (Exa, 5-game 45-question run)",91.11,4.462,results/news_question_logs_5games.csv
